@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModel="clr-namespace:AVM.ViewModels.Launcher"
+             xmlns:data="clr-namespace:AVM.Data"
+             x:DataType="viewModel:LaunchDeploymentViewModel"
+             x:Class="AVM.LaunchDeployment"
+             Title="LaunchDeployment">
+
+
+    <ScrollView HorizontalOptions="FillAndExpand">
+        <Frame Margin="5">
+            <Grid HorizontalOptions="FillAndExpand" Padding="10">
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="10" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+
+                <Label Grid.Row="0" Grid.Column="0" Text="Virtual Machine Group Name" FontSize="Small" />
+                <Entry IsReadOnly="{Binding IsWorking}" Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="1" Text="{Binding VmGroupName}" HorizontalOptions="FillAndExpand" />
+                <Button Grid.Row="0" Grid.Column="3" Text="Generate" Command="{Binding RandomNameCommand}"></Button>
+
+                <Label Grid.Row="1" Grid.Column="0" Text="Location" FontSize="Small" />
+                <Picker  Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" ItemsSource="{Binding Source={RelativeSource AncestorType={x:Type viewModel:LaunchDeploymentViewModel}}, Path=Locations}" x:DataType="{x:Type data:ResourceLocation}" ItemDisplayBinding="{Binding DisplayName}" SelectedItem="{Binding Source={RelativeSource AncestorType={x:Type viewModel:LaunchDeploymentViewModel}}, Path=VmLocation}" HorizontalOptions="FillAndExpand" >
+                    <Picker.Triggers>
+                        <DataTrigger TargetType="Picker" Binding="{Binding Source={RelativeSource AncestorType={x:Type viewModel:LaunchDeploymentViewModel}}, Path=IsWorking}" Value="True">
+                            <Setter Property="IsEnabled" Value="False" />
+                        </DataTrigger>
+                    </Picker.Triggers>
+                </Picker>
+
+                <!--<Label Grid.Row="2" Grid.Column="0" Text="Random Locations" FontSize="Small" />
+        <Switch Grid.Row="2" Grid.Column="2" IsToggled="{Binding VmLocationRandom}" HorizontalOptions="FillAndExpand" />-->
+
+                <Label Grid.Row="3" Grid.Column="0" Text="VM Size" FontSize="Small" />
+                <Picker Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="2" ItemsSource="{Binding Source={RelativeSource AncestorType={x:Type viewModel:LaunchDeploymentViewModel}}, Path=VmSizes}" x:DataType="{x:Type data:VirtualMachineSize}" ItemDisplayBinding="{Binding VmLong}" SelectedItem="{Binding Source={RelativeSource AncestorType={x:Type viewModel:LaunchDeploymentViewModel}}, Path=VmSize}" HorizontalOptions="FillAndExpand" >
+                    <Picker.Triggers>
+                        <DataTrigger TargetType="Picker" Binding="{Binding Source={RelativeSource AncestorType={x:Type viewModel:LaunchDeploymentViewModel}}, Path=IsWorking}" Value="True">
+                            <Setter Property="IsEnabled" Value="False" />
+                        </DataTrigger>
+                    </Picker.Triggers>
+                </Picker>
+
+                <!--<Label Grid.Row="4" Grid.Column="0" Text="Disk Size" FontSize="Small" />
+        <Entry IsReadOnly="{Binding IsWorking}" Grid.Row="4" Grid.Column="2" Text="{Binding VmDiskSize}" HorizontalOptions="FillAndExpand" />-->
+
+                <Label Grid.Row="5" Grid.Column="0" Text="Admin Username" FontSize="Small" />
+                <Entry IsReadOnly="{Binding IsWorking}" Grid.Row="5" Grid.Column="2" Grid.ColumnSpan="2" Text="{Binding AdminUsername}" HorizontalOptions="FillAndExpand" />
+
+                <Label Grid.Row="6" Grid.Column="0" Text="Admin Password" FontSize="Small" />
+                <Entry IsReadOnly="{Binding IsWorking}" Grid.Row="6" Grid.Column="2" Grid.ColumnSpan="2" Text="{Binding AdminPassword}" IsPassword="True" HorizontalOptions="FillAndExpand" />
+
+                <Label Grid.Row="7" Grid.Column="0" Text="Confirm Password" FontSize="Small" />
+                <Entry IsReadOnly="{Binding IsWorking}" Grid.Row="7" Grid.Column="2" Grid.ColumnSpan="2" Text="{Binding AdminPasswordConfirm}" IsPassword="True" HorizontalOptions="FillAndExpand" />
+
+                <Label Grid.Row="8" Grid.Column="0"  Text="VM Count"  FontSize="Small" />
+                <Entry IsReadOnly="{Binding IsWorking}" Grid.Row="8" Grid.Column="2" Text="{Binding VmCount}" HorizontalOptions="FillAndExpand" />
+
+                <Label Grid.Row="9" Grid.Column="0"  Text="Image Publisher"  FontSize="Small" />
+                <Entry IsReadOnly="{Binding IsWorking}" Grid.Row="9" Grid.Column="2" Grid.ColumnSpan="2" Text="{Binding ImagePublisher}" HorizontalOptions="FillAndExpand" />
+
+                <Label Grid.Row="10" Grid.Column="0"  Text="Image Offer"  FontSize="Small" />
+                <Entry IsReadOnly="{Binding IsWorking}" Grid.Row="10" Grid.Column="2" Grid.ColumnSpan="2" Text="{Binding ImageOffer}" HorizontalOptions="FillAndExpand" />
+
+                <Label Grid.Row="11" Grid.Column="0"  Text="Image SKU"  FontSize="Small" />
+                <Entry IsReadOnly="{Binding IsWorking}" Grid.Row="11" Grid.Column="2" Grid.ColumnSpan="2" Text="{Binding ImageSku}" HorizontalOptions="FillAndExpand" />
+
+                <Label Grid.Row="12" Grid.Column="0"  Text="Image Version"  FontSize="Small" />
+                <Entry IsReadOnly="{Binding IsWorking}" Grid.Row="12" Grid.Column="2" Grid.ColumnSpan="2" Text="{Binding ImageVersion}" HorizontalOptions="FillAndExpand" />
+
+                <Button Grid.Row="13" Grid.Column="2" Text="Launch VM Group" Command="{Binding LaunchCommand}" HorizontalOptions="FillAndExpand" Margin="5" >
+                    <Button.Triggers>
+                        <DataTrigger TargetType="Button" Binding="{Binding Source={RelativeSource AncestorType={x:Type viewModel:LaunchDeploymentViewModel}}, Path=IsWorking}" Value="True">
+                            <Setter Property="IsEnabled" Value="False" />
+                        </DataTrigger>
+                    </Button.Triggers>
+                </Button>
+                <Button Grid.Row="13" Grid.Column="3" Text="Clear" Command="{Binding CancelCommand}" HorizontalOptions="FillAndExpand" Margin="5">
+                    <Button.Triggers>
+                        <DataTrigger TargetType="Button" Binding="{Binding Source={RelativeSource AncestorType={x:Type viewModel:LaunchDeploymentViewModel}}, Path=IsWorking}" Value="True">
+                            <Setter Property="IsEnabled" Value="False" />
+                        </DataTrigger>
+                    </Button.Triggers>
+                </Button>
+
+            </Grid>
+        </Frame>
+    </ScrollView>
+
+</ContentPage>

@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:azure="clr-namespace:Azure.ResourceManager.Compute;assembly=Azure.ResourceManager.Compute"
+             xmlns:viewModels="clr-namespace:AVM.Controls;assembly=AVM"
+             x:DataType="azure:VirtualMachineResource"
+             x:Class="AVM.Controls.VmRowDetails">
+    <Frame Margin="4">
+        <Grid ColumnDefinitions="80,10,400,*,*,*,*,*" RowDefinitions="Auto,Auto,Auto">
+
+            <Image Grid.Column="0" Grid.Row="0" Grid.RowSpan="3" >
+                <Image.Source>
+                    <FontImageSource FontFamily="FontAwesomeSolid" Glyph="{StaticResource computer}" Size="60" Color="{StaticResource Gray400}" />
+                </Image.Source>
+            </Image>
+
+            <Grid Grid.Row="0" Grid.Column="2" Grid.RowSpan="3" ColumnDefinitions="200, *" RowDefinitions="Auto,Auto,Auto,Auto,Auto">
+
+                <Label Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Text="{Binding Data.Name}" FontAttributes="Bold"/>
+
+                <Label Grid.Column="0" Grid.Row="1" Text="Resource Group:" Style="{StaticResource label}"/>
+                <Label Grid.Column="1" Grid.Row="1" Text="{Binding Data.Id.ResourceGroupName}" Style="{StaticResource value}" />
+
+                <Label Grid.Column="0" Grid.Row="2" Text="Location:" Style="{StaticResource label}"/>
+                <Label Grid.Column="1" Grid.Row="2" Text="{Binding Data.Location}" Style="{StaticResource value}" />
+
+                <Label Grid.Column="0" Grid.Row="3" Text="Status:" Style="{StaticResource label}"/>
+                <Label Grid.Column="1" Grid.Row="3" Text="{Binding Data.InstanceView.Statuses[1].DisplayStatus}" Style="{StaticResource value}" />
+
+                <Label Grid.Column="0" Grid.Row="4" Text="Created" Style="{StaticResource label}" />
+                <Label Grid.Column="1" Grid.Row="4" Text="{Binding Data.TimeCreated, StringFormat='{0:d} {0:t}'}"  Style="{StaticResource value}" />
+
+            </Grid>
+
+            <Button Grid.Column="3" Grid.Row="1" Text="Connect" ContentLayout="Left,10" Margin="4" Style="{StaticResource connectButton}" Clicked="Button_Clicked">
+                <Button.ImageSource>
+                    <FontImageSource FontFamily="FontAwesomeSolid" Glyph="{StaticResource connect}" Size="16" />
+                </Button.ImageSource>
+                <Button.Triggers>
+                    <DataTrigger TargetType="Button" Binding="{Binding Data.InstanceView.Statuses[0].Code}" Value="PowerState/deallocated">
+                        <Setter Property="IsEnabled" Value="False"/>
+                    </DataTrigger>
+                    <DataTrigger TargetType="Button" Binding="{Binding Data.InstanceView.Statuses[0].Code}" Value="PowerState/deallocating">
+                        <Setter Property="IsEnabled" Value="False"/>
+                    </DataTrigger>
+                    <DataTrigger TargetType="Button" Binding="{Binding Data.InstanceView.Statuses[0].Code}" Value="PowerState/running">
+                        <Setter Property="IsEnabled" Value="True"/>
+                    </DataTrigger>
+                    <DataTrigger TargetType="Button" Binding="{Binding Data.InstanceView.Statuses[0].Code}" Value="PowerState/starting">
+                        <Setter Property="IsEnabled" Value="False"/>
+                    </DataTrigger>
+                    <DataTrigger TargetType="Button" Binding="{Binding Data.InstanceView.Statuses[0].Code}" Value="PowerState/stopped">
+                        <Setter Property="IsEnabled" Value="False"/>
+                    </DataTrigger>
+                    <DataTrigger TargetType="Button" Binding="{Binding Data.InstanceView.Statuses[0].Code}" Value="PowerState/stopping">
+                        <Setter Property="IsEnabled" Value="False"/>
+                    </DataTrigger>
+                    <DataTrigger TargetType="Button" Binding="{Binding Data.InstanceView.Statuses[0].Code}" Value="PowerState/unknown">
+                        <Setter Property="IsEnabled" Value="False"/>
+                    </DataTrigger>
+                </Button.Triggers>
+            </Button>
+            <Button Grid.Column="4" Grid.Row="1" Text="Start" ContentLayout="Left,10" Margin="4" Style="{StaticResource playButton}" Clicked="Button_Clicked_1">
+                <Button.ImageSource>
+                    <FontImageSource FontFamily="FontAwesomeSolid" Glyph="{StaticResource play}" Size="16" />
+                </Button.ImageSource>
+                <Button.Triggers>
+                    <DataTrigger TargetType="Button" Binding="{Binding Data.InstanceView.Statuses[1].Code}" Value="PowerState/deallocated">
+                        <Setter Property="IsEnabled" Value="False"/>
+                    </DataTrigger>
+                    <DataTrigger TargetType="Button" Binding="{Binding Data.InstanceView.Statuses[1].Code}" Value="PowerState/deallocating">
+                        <Setter Property="IsEnabled" Value="False"/>
+                    </DataTrigger>
+                    <DataTrigger TargetType="Button" Binding="{Binding Data.InstanceView.Statuses[1].Code}" Value="PowerState/running">
+                        <Setter Property="IsEnabled" Value="False"/>
+                    </DataTrigger>
+                    <DataTrigger TargetType="Button" Binding="{Binding Data.InstanceView.Statuses[1].Code}" Value="PowerState/starting">
+                        <Setter Property="IsEnabled" Value="False"/>
+                    </DataTrigger>
+                    <DataTrigger TargetType="Button" Binding="{Binding Data.InstanceView.Statuses[1].Code}" Value="PowerState/stopped">
+                        <Setter Property="IsEnabled" Value="True"/>
+                    </DataTrigger>
+                    <DataTrigger TargetType="Button" Binding="{Binding Data.InstanceView.Statuses[1].Code}" Value="PowerState/stopping">
+                        <Setter Property="IsEnabled" Value="True"/>
+                    </DataTrigger>
+                    <DataTrigger TargetType="Button" Binding="{Binding Data.InstanceView.Statuses[1].Code}" Value="PowerState/unknown">
+                        <Setter Property="IsEnabled" Value="True"/>
+                    </DataTrigger>
+                </Button.Triggers>
+            </Button>
+            <Button Grid.Column="5" Grid.Row="1" Text="Restart"  ContentLayout="Left,10" Margin="4" Style="{StaticResource restartButton}" Clicked="Button_Clicked_2">
+                <Button.ImageSource>
+                    <FontImageSource FontFamily="FontAwesomeSolid" Glyph="{StaticResource refresh}" Size="16" />
+                </Button.ImageSource>
+                <Button.Triggers>
+                    <DataTrigger TargetType="Button" Binding="{Binding Data.InstanceView.Statuses[1].Code}" Value="PowerState/deallocated">
+                        <Setter Property="IsEnabled" Value="False"/>
+                    </DataTrigger>
+                    <DataTrigger TargetType="Button" Binding="{Binding Data.InstanceView.Statuses[1].Code}" Value="PowerState/deallocating">
+                        <Setter Property="IsEnabled" Value="False"/>
+                    </DataTrigger>
+                    <DataTrigger TargetType="Button" Binding="{Binding Data.InstanceView.Statuses[1].Code}" Value="PowerState/running">
+                        <Setter Property="IsEnabled" Value="True"/>
+                    </DataTrigger>
+                    <DataTrigger TargetType="Button" Binding="{Binding Data.InstanceView.Statuses[1].Code}" Value="PowerState/starting">
+                        <Setter Property="IsEnabled" Value="False"/>
+                    </DataTrigger>
+                    <DataTrigger TargetType="Button" Binding="{Binding Data.InstanceView.Statuses[1].Code}" Value="PowerState/stopped">
+                        <Setter Property="IsEnabled" Value="False"/>
+                    </DataTrigger>
+                    <DataTrigger TargetType="Button" Binding="{Binding Data.InstanceView.Statuses[1].Code}" Value="PowerState/stopping">
+                        <Setter Property="IsEnabled" Value="False"/>
+                    </DataTrigger>
+                    <DataTrigger TargetType="Button" Binding="{Binding Data.InstanceView.Statuses[1].Code}" Value="PowerState/unknown">
+                        <Setter Property="IsEnabled" Value="False"/>
+                    </DataTrigger>
+                </Button.Triggers>
+            </Button>
+            <Button Grid.Column="6" Grid.Row="1" Text="Stop"  ContentLayout="Left,10" Margin="4" Style="{StaticResource stopButton}" Clicked="Button_Clicked_3">
+                <Button.ImageSource>
+                    <FontImageSource FontFamily="FontAwesomeSolid" Glyph="{StaticResource stop}" Size="16" />
+                </Button.ImageSource>
+                <Button.Triggers>
+                    <DataTrigger TargetType="Button" Binding="{Binding Data.InstanceView.Statuses[1].Code}" Value="PowerState/deallocated">
+                        <Setter Property="IsEnabled" Value="False"/>
+                    </DataTrigger>
+                    <DataTrigger TargetType="Button" Binding="{Binding Data.InstanceView.Statuses[1].Code}" Value="PowerState/deallocating">
+                        <Setter Property="IsEnabled" Value="False"/>
+                    </DataTrigger>
+                    <DataTrigger TargetType="Button" Binding="{Binding Data.InstanceView.Statuses[1].Code}" Value="PowerState/running">
+                        <Setter Property="IsEnabled" Value="True"/>
+                    </DataTrigger>
+                    <DataTrigger TargetType="Button" Binding="{Binding Data.InstanceView.Statuses[1].Code}" Value="PowerState/starting">
+                        <Setter Property="IsEnabled" Value="True"/>
+                    </DataTrigger>
+                    <DataTrigger TargetType="Button" Binding="{Binding Data.InstanceView.Statuses[1].Code}" Value="PowerState/stopped">
+                        <Setter Property="IsEnabled" Value="False"/>
+                    </DataTrigger>
+                    <DataTrigger TargetType="Button" Binding="{Binding Data.InstanceView.Statuses[1].Code}" Value="PowerState/stopping">
+                        <Setter Property="IsEnabled" Value="False"/>
+                    </DataTrigger>
+                    <DataTrigger TargetType="Button" Binding="{Binding Data.InstanceView.Statuses[1].Code}" Value="PowerState/unknown">
+                        <Setter Property="IsEnabled" Value="True"/>
+                    </DataTrigger>
+                </Button.Triggers>
+            </Button>
+            <Button Grid.Column="7" Grid.Row="1" Text="Delete"  ContentLayout="Left,10" Margin="4" Style="{StaticResource cancleButton}" Clicked="Button_Clicked_4">
+                <Button.ImageSource>
+                    <FontImageSource FontFamily="FontAwesomeSolid" Glyph="{StaticResource delete}" Size="16" />
+                </Button.ImageSource>
+                <Button.Triggers>
+                    <DataTrigger TargetType="Button" Binding="{Binding Data.InstanceView.Statuses[1].Code}" Value="PowerState/deallocated">
+                        <Setter Property="IsEnabled" Value="True"/>
+                    </DataTrigger>
+                    <DataTrigger TargetType="Button" Binding="{Binding Data.InstanceView.Statuses[1].Code}" Value="PowerState/deallocating">
+                        <Setter Property="IsEnabled" Value="True"/>
+                    </DataTrigger>
+                    <DataTrigger TargetType="Button" Binding="{Binding Data.InstanceView.Statuses[1].Code}" Value="PowerState/running">
+                        <Setter Property="IsEnabled" Value="False"/>
+                    </DataTrigger>
+                    <DataTrigger TargetType="Button" Binding="{Binding Data.InstanceView.Statuses[1].Code}" Value="PowerState/starting">
+                        <Setter Property="IsEnabled" Value="False"/>
+                    </DataTrigger>
+                    <DataTrigger TargetType="Button" Binding="{Binding Data.InstanceView.Statuses[1].Code}" Value="PowerState/stopped">
+                        <Setter Property="IsEnabled" Value="True"/>
+                    </DataTrigger>
+                    <DataTrigger TargetType="Button" Binding="{Binding Data.InstanceView.Statuses[1].Code}" Value="PowerState/stopping">
+                        <Setter Property="IsEnabled" Value="True"/>
+                    </DataTrigger>
+                    <DataTrigger TargetType="Button" Binding="{Binding Data.InstanceView.Statuses[1].Code}" Value="PowerState/unknown">
+                        <Setter Property="IsEnabled" Value="True"/>
+                    </DataTrigger>
+                </Button.Triggers>
+            </Button>
+
+        </Grid>
+    </Frame>
+</ContentView>

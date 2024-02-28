@@ -1,0 +1,27 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34526.213
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AVM", "AVM\AVM.csproj", "{54FE50AD-F430-4E26-BF05-5AB7D00A6A6D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{54FE50AD-F430-4E26-BF05-5AB7D00A6A6D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{54FE50AD-F430-4E26-BF05-5AB7D00A6A6D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{54FE50AD-F430-4E26-BF05-5AB7D00A6A6D}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{54FE50AD-F430-4E26-BF05-5AB7D00A6A6D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{54FE50AD-F430-4E26-BF05-5AB7D00A6A6D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{54FE50AD-F430-4E26-BF05-5AB7D00A6A6D}.Release|Any CPU.Deploy.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {700F0C99-B6E3-44F6-83C6-A5A0E37F2FE6}
+	EndGlobalSection
+EndGlobal

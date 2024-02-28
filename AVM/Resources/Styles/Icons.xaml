@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<?xaml-comp compile="true" ?>
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+
+	<x:String x:Key="user">&#xf007;</x:String>
+	<x:String x:Key="eye">&#xf06e;</x:String>
+	<x:String x:Key="dollar">&#x24;</x:String>
+	<x:String x:Key="addCircle">&#xf055;</x:String>
+	<x:String x:Key="save">&#xf0c7;</x:String>
+	<x:String x:Key="edit">&#xf044;</x:String>
+	<x:String x:Key="delete">&#xf1f8;</x:String>
+	<x:String x:Key="close">&#xf00d;</x:String>
+	<x:String x:Key="check">&#xf00c;</x:String>
+	<x:String x:Key="menu">&#xf0c9;</x:String>
+	<x:String x:Key="back">&#xf053;</x:String>
+	<x:String x:Key="home">&#xf015;</x:String>
+	<x:String x:Key="settings">&#xf013;</x:String>
+	<x:String x:Key="info">&#xf05a;</x:String>
+	<x:String x:Key="calendar">&#xf073;</x:String>
+	<x:String x:Key="list">&#xf03a;</x:String>
+	<x:String x:Key="chart">&#xf080;</x:String>
+	<x:String x:Key="plus">&#xf067;</x:String>
+	<x:String x:Key="minus">&#xf068;</x:String>
+	<x:String x:Key="arrowRight">&#xf061;</x:String>
+	<x:String x:Key="arrowLeft">&#xf060;</x:String>
+	<x:String x:Key="arrowUp">&#xf062;</x:String>
+	<x:String x:Key="arrowDown">&#xf063;</x:String>
+	<x:String x:Key="arrowRightCircle">&#xf138;</x:String>
+	<x:String x:Key="arrowLeftCircle">&#xf137;</x:String>
+	<x:String x:Key="arrowUpCircle">&#xf139;</x:String>
+	<x:String x:Key="arrowDownCircle">&#xf13a;</x:String>
+	<x:String x:Key="arrowRightSquare">&#xf0a9;</x:String>
+	<x:String x:Key="arrowLeftSquare">&#xf0a8;</x:String>
+	<x:String x:Key="arrowUpSquare">&#xf0aa;</x:String>
+	<x:String x:Key="arrowDownSquare">&#xf0ab;</x:String>
+	<x:String x:Key="camera">&#xf030;</x:String>
+	<x:String x:Key="upload">&#xf093;</x:String>
+    <x:String x:Key="refresh">&#xf021;</x:String>
+    <x:String x:Key="stop">&#xf04d;</x:String>
+    <x:String x:Key="play">&#xf04b;</x:String>
+    <x:String x:Key="pause">&#xf04c;</x:String>
+    <x:String x:Key="computer">&#xe4e5;</x:String>
+    <x:String x:Key="connect">&#xf0c1;</x:String>
+
+</ResourceDictionary>

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:azure="clr-namespace:Azure.ResourceManager.Compute;assembly=Azure.ResourceManager.Compute"
+             xmlns:viewmodels="clr-namespace:AVM.ViewModels.Dashboard"
+             xmlns:controls="clr-namespace:AVM.Controls"
+             x:DataType="viewmodels:ResourceGroupViewModel"
+             x:Class="AVM.ResourceGroup"
+             Title="{Binding PageTitle}">
+    <Shell.TitleView>
+        <Grid ColumnDefinitions="*,150">
+            <Label Text="{Binding PageTitle}" FontSize="Title" />
+        </Grid>
+    </Shell.TitleView>
+
+
+    <ScrollView>
+        <Grid RowDefinitions="Auto, Auto,*" ColumnDefinitions="*,*" Padding="5">
+
+            <Frame Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Margin="2" BackgroundColor="{StaticResource Gray100}" IsVisible="{Binding IsBusy}">
+                <Grid ColumnDefinitions="200,*, 80" RowDefinitions="Auto,Auto,Auto,Auto">
+                    <Label Text="Operation Running" FontAttributes="Italic" />
+                    <CollectionView Grid.Column="1" ItemsSource="{Binding StatusMessages}">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Label Text="{Binding .}" />
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                    <ActivityIndicator Grid.Column="2" IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" />
+                </Grid>
+            </Frame>
+
+
+            <Frame Grid.Column="0" Grid.Row="1" Margin="2">
+                <Grid ColumnDefinitions="200,*, 80" RowDefinitions="Auto,Auto,Auto,Auto">
+                    <Label Text="Virtual Machines" FontAttributes="Bold" />
+                    <Label Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding VirtualMachines.Count}" />
+
+                    <Label Grid.Row="1" Text="Locations" FontAttributes="Bold" />
+                    <Label Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding RegionCount}" />
+
+                    <Label Grid.Row="2" Text="Resource Groups" FontAttributes="Bold" />
+                    <Label Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding ResourceGroupCount}" />
+
+                </Grid>
+            </Frame>
+
+            <Frame Grid.Column="1" Grid.Row="1" Margin="2">
+
+                <Grid ColumnDefinitions="*,*,*,*" RowDefinitions="*,60,*">
+                    <Button Text="Refresh" Grid.Row="1" Grid.Column="0" Margin="5" ContentLayout="Left, 10" Command="{Binding LoadDataCommand}">
+                        <Button.ImageSource>
+                            <FontImageSource FontFamily="FontAwesomeSolid" Glyph="{StaticResource refresh}" Size="16" />
+                        </Button.ImageSource>
+                        <Button.Triggers>
+                            <DataTrigger TargetType="Button" Binding="{Binding IsBusy}" Value="True">
+                                <Setter Property="IsEnabled" Value="False" />
+                            </DataTrigger>
+                        </Button.Triggers>
+                    </Button>
+                    <Button Text="Start" Grid.Column="1" Grid.Row="1" Margin="5" ContentLayout="Left, 10" Command="{Binding StartAllVmsCommand}" Style="{StaticResource playButton}">
+                        <Button.ImageSource>
+                            <FontImageSource FontFamily="FontAwesomeSolid" Glyph="{StaticResource play}" Size="16" />
+                        </Button.ImageSource>
+                        <Button.Triggers>
+                            <DataTrigger TargetType="Button" Binding="{Binding IsBusy}" Value="True">
+                                <Setter Property="IsEnabled" Value="False" />
+                            </DataTrigger>
+                        </Button.Triggers>
+                    </Button>
+                    <Button Text="Stop" Grid.Column="2" Grid.Row="1" Margin="5" ContentLayout="Left, 10" Command="{Binding StopAllVmsCommand}" Style="{StaticResource stopButton}">
+                        <Button.ImageSource>
+                            <FontImageSource FontFamily="FontAwesomeSolid" Glyph="{StaticResource stop}" Size="16" />
+                        </Button.ImageSource>
+                        <Button.Triggers>
+                            <DataTrigger TargetType="Button" Binding="{Binding IsBusy}" Value="True">
+                                <Setter Property="IsEnabled" Value="False" />
+                            </DataTrigger>
+                        </Button.Triggers>
+                    </Button>
+                    <Button Text="Remove" Grid.Column="3" Grid.Row="1" Margin="5" ContentLayout="Left, 10" Command="{Binding RemoveAllVmsCommand}" Style="{StaticResource cancleButton}">
+                        <Button.ImageSource>
+                            <FontImageSource FontFamily="FontAwesomeSolid" Glyph="{StaticResource delete}" Size="16" />
+                        </Button.ImageSource>
+                        <Button.Triggers>
+                            <DataTrigger TargetType="Button" Binding="{Binding IsBusy}" Value="True">
+                                <Setter Property="IsEnabled" Value="False" />
+                            </DataTrigger>
+                        </Button.Triggers>
+                    </Button>
+                </Grid>
+
+            </Frame>
+
+
+            <CollectionView ItemsSource="{Binding VirtualMachines}" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="2">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="azure:VirtualMachineResource">
+                        <controls:VmRowDetails VmName="{Binding Data.Name}" Group="{Binding Data.Id.ResourceGroupName}" />
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+        </Grid>
+    </ScrollView>
+</ContentPage>

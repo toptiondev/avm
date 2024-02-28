@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="AVM.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:AVM"
+    Shell.FlyoutBehavior="{OnIdiom Desktop='Locked', Phone='Flyout', Tablet='Locked'}"
+    Title="Azure VM Manager">
+
+    <Shell.FlyoutHeaderTemplate>
+        <DataTemplate>
+            <Grid BackgroundColor="White" HeightRequest="150">
+                <Image Source="avm.png" />
+            </Grid>
+        </DataTemplate>
+    </Shell.FlyoutHeaderTemplate>
+
+
+    <FlyoutItem Title="Dashboard" Icon="gauge.png">
+        <ShellContent
+        Title="Dashboard"
+        Icon="gaugehigh.png"
+        ContentTemplate="{DataTemplate local:MainPage}"
+        Route="MainPage" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="Launch Resource Group" Icon="laptop_medical.png">
+        <ShellContent
+            Title="Launch Resource Group"
+            Icon="laptop_medical.png"
+            ContentTemplate="{DataTemplate local:LaunchDeployment}"
+            Route="Launch" />
+    </FlyoutItem>
+    <FlyoutItem Title="Clean Up Resource Group" Icon="power_off.png">
+        <ShellContent
+            Title="Clean Up Resource Group"
+            Icon="power_off.png"
+            ContentTemplate="{DataTemplate local:CleanUpResource}"
+            Route="CleanUp" />
+    </FlyoutItem>
+
+
+</Shell>
