@@ -646,9 +646,13 @@ namespace AVM.Services
 
                     try
                     {
+                        rgs = sub.GetResourceGroups().ToList();
+                        rg = rgs.FirstOrDefault(x => x.Data.Name.ToLower() == group.ToLower());
                         // now we check to make sure all the resources are deleted
-                        await rg.DeleteAsync(Azure.WaitUntil.Completed);
-                    }catch(Exception es)
+                        if (rg != null)
+                            await rg.DeleteAsync(Azure.WaitUntil.Completed);
+                    }
+                    catch (Exception es)
                     {
                         _operationStatusMessage.OnNext(new VmOperationStatusMessage { Operation = VmOperation.Delete, Message = $"Error: {es.Message}", Group = group });
                         _operationCompleted.OnNext(new VmOperation { Operation = VmOperation.Delete, Status = VmOperation.Failed, Group = group, ErrorMessage = $"Error: {es.Message}" });

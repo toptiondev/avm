@@ -47,7 +47,7 @@ namespace AVM.ViewModels.CleanUp
                     if(x.Status == VmOperation.Failed)
                     {
                         OperationStatus.Add($"Operation failed: {x.Group}");
-                        await Application.Current.MainPage.DisplayAlert("Operation Failed", $"Failed to remove the resource group {x.Group}\n{x.ErrorMessage}", "OK");
+                        //await Application.Current.MainPage.DisplayAlert("Operation Failed", $"Failed to remove the resource group {x.Group}\n{x.ErrorMessage}", "OK");
                     }
                     else
                     {
